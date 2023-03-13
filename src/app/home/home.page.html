@@ -1,0 +1,78 @@
+<ion-menu contentId="main-content">
+  <ion-header style="text-align:center;">
+      <ion-item>
+      <ion-icon name="people"></ion-icon>
+      <h5>About Us</h5>
+    </ion-item>
+      <ion-item><ion-icon name="chatbubbles"></ion-icon> <h5> FAQ</h5></ion-item>
+      <ion-item (click)="terms()">
+      <ion-icon name="paper-plane"></ion-icon>
+      <h5> Terms&Condtions</h5>
+    </ion-item>
+  </ion-header>
+</ion-menu>
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title style="text-align: center;">
+        SOLVE MOBILE APP
+      </ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-toggle slot="end" (ionChange)="toggelChange($event)"></ion-toggle>
+    </ion-toolbar>
+  </ion-header>
+ 
+  <ion-content class="ion-padding">
+    <ion-card-title style="text-align: center;">
+      <img src="assets/Original-green.png" widht="100px" height="50px">
+    </ion-card-title>
+    <div class="ion-page" id="main-content">
+   
+  </div>
+  <swiper [keyboard]="true" [loop]="true" [slidesPerView]="1" [pagination]="{clickable:true}" #swiper>
+  <ng-template swiperSlide  *ngFor="let a of array"><img  src="{{a.image}}" class="image"/></ng-template>
+  </swiper>
+
+    <ion-text> IEC 60364 gives the rules for the design, erection, and verification of electrical installations up to 1000 V
+      AC and 1500 V DC. These rules are adopted/followed worldwide as wiring rules. Some of the adopted national
+      versions of this standard are BS7671 in UK, VDE0100 in Germany … etc. The NFPA 70 (NEC) of USA closely
+      follows the fundamental safety measures recommended in IEC 60364.
+      In India the standard is adopted as IS732 for general installations and Part 3 of National Building Code of
+      India part 3 for special locations.
+      The rules are intended to provide for the safety of persons, livestock and property against dangers and
+      damage which may arise in the reasonable use of electrical installations and to provide for the proper
+      functioning of those installations.
+      The rules are applicable in design, erection and verification of electrical installations such as
+      residential, commercial, public, industrial, agricultural and horticultural, prefabricated buildings,
+      caravans, caravan sites and similar sites, construction sites, exhibitions, fairs and other installations
+      for temporary purposes, marinas, external lighting and similar installations, medical locations, mobile or
+      transportable units, photovoltaic systems, low-voltage generating sets etc.
+      Verification ensures safety of the installation and its conformity to the standard in design, selection and
+      erection of the installation. Initial and periodic verifications are necessary.
+    </ion-text> 
+  <!-- </ion-virtual-scroll> -->
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button (click)="register()">
+      <ion-icon name="person-add" ></ion-icon>
+      New User/Register
+    </ion-tab-button>
+    <ion-tab-button  (click)="meter()" [disabled]="true">
+      <ion-icon name="radio"></ion-icon>
+      Meter
+    </ion-tab-button>
+    <ion-tab-button (click)="login()">
+      <ion-icon name="log-in"></ion-icon>
+      Login
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+</ion-toolbar>
+</ion-footer>
+

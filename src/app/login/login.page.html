@@ -1,0 +1,34 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar >
+    <ion-buttons slot="start">
+    <!-- <ion-title style="text-align: center;">login</ion-title> -->
+    <ion-back-button ></ion-back-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+ 
+      <ion-card-title style="text-align: center;margin-top:20px;">
+        <img src="assets/Original-green.png" widht="100px" height="50px">
+      </ion-card-title>
+      <ion-card-subtitle style="padding:8px;font-weight:bold;font-size:26px;color:black;text-align: center;">Login</ion-card-subtitle>
+        <ion-list style="padding: 20px;">
+          <!-- <span class="error ion-padding" *ngIf="errorMsg">Please Enter All</span>  -->
+          <ion-item>
+            <ion-label><ion-icon name="person"></ion-icon></ion-label>
+            <ion-input type="text" placeholder="Enter your UserName" [(ngModel)]="authenticate.email"></ion-input>
+          </ion-item><br>
+          <ion-item>
+            <ion-label><ion-icon name="key"></ion-icon></ion-label>
+            <ion-input type="Password" placeholder="Enter your Password" [(ngModel)]="authenticate.password"></ion-input>
+          </ion-item><br>
+          
+            <span  style="color:dodgerblue;float:right;cursor: pointer;">forgot Password?</span>
+        <ion-item>  <ion-checkbox></ion-checkbox> <ion-label> Remember me</ion-label> </ion-item>
+            <ion-button style="margin-top:40px;" expand="block" (click)="login()">Login</ion-button>
+            <p>new to Application?<span style="color: royalblue;cursor: pointer;" (click)="register()">Register</span></p>
+        </ion-list>
+    
+</ion-content>
+

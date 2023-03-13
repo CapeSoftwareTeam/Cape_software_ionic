@@ -1,0 +1,152 @@
+<ion-header >
+ 
+  <ion-toolbar color="primary">
+    <ion-title style="text-align:center;">Register</ion-title>
+    
+      <ion-back-button slot="start"></ion-back-button>
+  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment [(ngModel)]="page.selectedSection">
+    <ion-segment-button value="{{page.personal}}" >
+      <ion-label>Personal</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value='{{page.address}}'>
+      <ion-label>Address</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-card style="padding:8px;border-radius:10px;">
+  <ion-card-title style="text-align: center;margin-top:20px;">
+    <img src="assets/Original-green.png" widht="100px" height="50px">
+  </ion-card-title>
+  <form [formGroup]="registerForm">
+ <ion-list *ngIf="page.selectedSection=='personal'">
+  <ion-item>
+  <ion-label><ion-icon name="person"></ion-icon></ion-label>
+  <ion-input type="text" placeholder="Enter Your Name" formControlName="name" [(ngModel)]="registermodal.name"></ion-input>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['name'].errors?.['required']">
+  Name is required.
+</span>
+<ion-item>
+  <ion-label><ion-icon name="mail"></ion-icon></ion-label>
+  <ion-input type="email" placeholder="Enter Your Email Id" formControlName="username" [(ngModel)]="registermodal.username"></ion-input>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['username'].errors?.['required']">
+  Email is required.
+</span>
+<span class="error ion-padding" *ngIf="isSubmitted && field['username'].errors?.['pattern']">
+  Email pattern is required.
+</span>
+<ion-item>
+  <ion-label><ion-icon name="call"></ion-icon></ion-label>
+  <ion-input type="number" placeholder="Enter Your Contact Number" formControlName="contactNumber" [(ngModel)]="registermodal.contactNumber"></ion-input>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['contactNumber'].errors?.['required']">
+  Contact Number is required.
+</span>
+<ion-item>
+  <ion-label><ion-icon name="people-outline"></ion-icon></ion-label>
+  <ion-select interface="popover" placeholder="Select User Type" formControlName="userType" [(ngModel)]="registermodal.userType" (ngModelChange)="click()">
+    <ion-select-option value="user">User</ion-select-option>
+    <ion-select-option value="inspector">Inspector</ion-select-option>
+  </ion-select>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['userType'].errors?.['required']">
+  User Type is required.
+</span>
+<ion-item *ngIf="field['userType'].value=='inspector'">
+  <ion-label><ion-icon name="newspaper-outline"></ion-icon></ion-label>
+  <ion-select interface="popover" placeholder="Select Application Type" formControlName="applicationType" [(ngModel)]="registermodal.applicationType" [multiple]="true" (ionChange)="selectALL($event)">
+    <!-- <ion-select-option value="all">Select All</ion-select-option> -->
+    <ion-select-option  *ngFor="let a of ApplicationType" value="{{a}}">{{a}}</ion-select-option>
+    <!-- <ion-select-option value="lv">LV</ion-select-option> -->
+  </ion-select>
+</ion-item><br>
+<div *ngIf="field['userType'].value=='inspector'">
+<span class="error ion-padding" *ngIf="isSubmitted && field['applicationType'].errors?.['required']">
+  Application Type is required.
+</span>
+</div>
+<ion-item>
+  <ion-label><ion-icon name="storefront-outline"></ion-icon></ion-label>
+  <ion-input type="text" placeholder="Enter Your Company Name" formControlName="companyName" [(ngModel)]="registermodal.companyName"></ion-input>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['companyName'].errors?.['required']">
+  Company Name is required.
+</span>
+<ion-item>
+  <ion-label><ion-icon name="at-outline"></ion-icon></ion-label>
+  <ion-input type="text" placeholder="Department Based On the Company" formControlName="department" [(ngModel)]="registermodal.department"></ion-input>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['department'].errors?.['required']">
+  Department is required.
+</span>
+</ion-list>
+<ion-list *ngIf="page.selectedSection=='address'">
+<ion-item>
+  <ion-label><ion-icon name="person-circle-outline"></ion-icon></ion-label>
+  <ion-input type="text" placeholder="Enter Your Designation" formControlName="designation" [(ngModel)]="registermodal.designation"></ion-input>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['designation'].errors?.['required']">
+  Designation is required.
+</span>
+<ion-item>
+  <ion-label><ion-icon name="location"></ion-icon></ion-label>
+  <ion-select  interface="popover" type="text" placeholder="Select Your Country" formControlName="country"  (ionChange)="stateGet($event)" [(ngModel)]="registermodal.country">
+    <ion-select-option  *ngFor="let a of country"value="{{a.name}}">{{a.name}}</ion-select-option>
+  </ion-select>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['country'].errors?.['required']">
+  Country is required.
+</span>
+<ion-item>
+  <ion-label><ion-icon name="location"></ion-icon></ion-label>
+  <ion-select interface="popover" type="text" placeholder="Select Your State" formControlName="state" [(ngModel)]="registermodal.state">
+    <ion-select-option  *ngFor="let a of state" value="{{a.name}}">{{a.name}}</ion-select-option>
+  </ion-select>
+</ion-item><br><span class="error ion-padding" *ngIf="isSubmitted && field['state'].errors?.['required']">
+  State is required.
+</span>
+<ion-item >
+  <ion-label><ion-icon name="location"></ion-icon></ion-label>
+  <ion-input type="text" placeholder="Enter Your District" formControlName="district" [(ngModel)]="registermodal.district"></ion-input>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['district'].errors?.['required']">
+  District is required.
+</span>
+<ion-item>
+  <ion-label><ion-icon name="location"></ion-icon></ion-label>
+  <ion-input type="text" placeholder="Enter Your Address" formControlName="address" [(ngModel)]="registermodal.address"></ion-input>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['address'].errors?.['required']">
+  Address is required.
+</span>
+<ion-item>
+  <ion-label><ion-icon name="pin" item-left></ion-icon></ion-label>
+  <ion-input type="text" placeholder="Enter Your Pin Code" formControlName="pinCode" [(ngModel)]="registermodal.pinCode"></ion-input>
+</ion-item><br>
+<span class="error ion-padding" *ngIf="isSubmitted && field['pinCode'].errors?.['required']">
+  Pin Code is required.
+</span>
+</ion-list>
+</form>
+<ion-row>
+  <!-- <ion-col >
+  <ion-button  color="primary" (click)="next()" *ngIf="page.selectedSection=='personal'" [disabled]="nextButton"><ion-icon name="log-in"></ion-icon>Next</ion-button>
+</ion-col> -->
+<ion-col >
+  <ion-button  color="success" *ngIf="page.selectedSection=='address'" (click)="register()" expand="block"><ion-icon name="log-in"></ion-icon>Register</ion-button>
+</ion-col>
+<!-- <ion-col>
+  <ion-button color="danger" *ngIf="page.selectedSection=='address'"><ion-icon name="log-out"></ion-icon>Cancel</ion-button>
+</ion-col> -->
+</ion-row>
+</ion-card>
+<!-- <ion-buttons slot="end">
+  <ion-icon name="log-out"></ion-icon><ion-button type="ion-button" color="primary"></ion-button>
+</ion-buttons> -->
+
+</ion-content>

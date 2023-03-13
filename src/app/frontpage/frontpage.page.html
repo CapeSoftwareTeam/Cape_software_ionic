@@ -1,0 +1,138 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>SOLVE</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+<!-- <ion-segment style="background-color:forestgreen;">
+  <ion-segment-button style="color:aliceblue ;">onGoing</ion-segment-button>
+  <ion-segment-button style="color:aliceblue ;">Finished</ion-segment-button>
+  <ion-segment-button style="color:aliceblue ;">Final Report</ion-segment-button> 
+ </ion-segment> -->
+ <ion-content>
+ <ion-accordion-group>
+  <ion-accordion value="first">
+    
+    <ion-item slot="header"  >
+      <ion-label>Signature</ion-label>
+    </ion-item>
+    
+    <div class="ion-padding" slot="content">
+
+      <ion-card-title style="text-align: center;">Signature Here</ion-card-title>
+     <ion-card>
+      <canvas #canvas (touchstart)="startDrawing($event)" (touchmove)="moved($event)"></canvas>
+    </ion-card>
+      <ion-grid>
+        <ion-row>
+          <ion-col >
+            <ion-button color="danger" (click)="clearPad()">Clear</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="secondary" (click)="savePad()">Save</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    
+    </div>
+  </ion-accordion>
+  <ion-accordion value="second">
+    <ion-item slot="header" >
+      <ion-label>On Going Site</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content" id="accordion">
+      <!-- <ion-item><ion-label>Filter Site Name</ion-label>
+        <ion-input id="filter"></ion-input><ion-icon name="search" (click)="filter()"></ion-icon>
+      </ion-item> -->
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredLocations($event)" placeholder="Enter Your SiteName"></ion-searchbar>
+      <div fxLayout="row" >
+        <span style="color:red;text-align: center;" *ngIf="error">{{filterError}}</span>
+        <ion-card *ngFor="let a of items |paginate:{itemsPerPage:1,currentPage:currentPage}" class="list">
+            <ion-list lines="none">
+              <ion-item>
+                <ion-label>SiteCode:</ion-label>{{a.siteCode}}
+              </ion-item>
+              <ion-item>
+                <ion-label>SiteName:</ion-label>{{a.siteName}}
+              </ion-item>
+              <ion-item>
+                <ion-label>Country:</ion-label>{{a.country}}
+              </ion-item>
+              <ion-item>
+                <ion-label>City:</ion-label>{{a.city}}
+              </ion-item>
+              <ion-item>
+                <ion-label>Created Date:</ion-label>{{a.createdDate}}
+              </ion-item>
+              <ion-item>
+                <ion-label>Created By:</ion-label>{{a.createdBy}}
+              </ion-item>
+              <ion-item>
+                <ion-label>Updated Date:</ion-label>{{a.updateDate}}
+              </ion-item>
+              <ion-item>
+                <ion-label>Update By:</ion-label>{{a.updateBy}}
+              </ion-item>
+              <ion-button expand="block" color="success">Edit Site<ion-icon name="pencil-outline"></ion-icon> </ion-button>
+            </ion-list>
+        </ion-card>
+    </div>
+    
+      
+     <pagination-controls (pageChange)="currentPage=$event" [responsive]="responsive" ></pagination-controls>
+    </div>
+  </ion-accordion>
+  <ion-accordion value="three">
+    <ion-item slot="header">
+      <ion-label>Completed Licence</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content" id="accordion">
+      <!-- <ion-item><ion-label>Filter Site Name</ion-label>
+        <ion-input id="filter"></ion-input><ion-icon name="search" (click)="filter()"></ion-icon>
+      </ion-item> -->
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredLocations($event)" placeholder="Enter Your SiteName"></ion-searchbar>
+      <div fxLayout="row" >
+        <span style="color:red;text-align: center;" *ngIf="error">{{filterError}}</span>
+        <ion-card *ngFor="let a of items |paginate:{itemsPerPage:1,currentPage:currentPage}" class="list">
+            <ion-list lines="none">
+              <ion-item>
+                <ion-label>SiteCode:</ion-label>{{a.siteCode}}
+              </ion-item>
+              <ion-item>
+                <ion-label>SiteName:</ion-label>{{a.siteName}}
+              </ion-item>
+              <ion-item>
+                <ion-label>Country:</ion-label>{{a.country}}
+              </ion-item>
+              <ion-item>
+                <ion-label>City:</ion-label>{{a.city}}
+              </ion-item>
+              <ion-item>
+                <ion-label>Created Date:</ion-label>{{a.createdDate}}
+              </ion-item>
+              <ion-item>
+                <ion-label>Created By:</ion-label>{{a.createdBy}}
+              </ion-item>
+              <ion-item>
+                <ion-label>Updated Date:</ion-label>{{a.updateDate}}
+              </ion-item>
+              <ion-item>
+                <ion-label>Update By:</ion-label>{{a.updateBy}}
+              </ion-item>
+             
+            </ion-list>
+        </ion-card>
+    </div>
+    
+     <div class="pagination">
+     <pagination-controls (pageChange)="currentPage=$event" [responsive]="responsive"></pagination-controls>
+    </div>
+    </div>
+  </ion-accordion>
+ </ion-accordion-group>
+  
+
+
+  <img src='{{ signatureImg }}' />
+ 
+</ion-content>
